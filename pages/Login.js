@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -11,8 +11,16 @@ import {
     ScrollView,
     Switch,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import * as Font from 'expo-font';
 
-export default function Login() {
+export default function Login({ navigation }) {
+    const login = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{name: "Tabs"}]
+          })
+    }
     return (
         <View style={styles.background}>
             <ImageBackground style={styles.backgroundImage} source={require('../assets/background-login.jpg')}>
@@ -39,7 +47,7 @@ export default function Login() {
                             onChangeText={() => { }}
                         />
 
-                        <TouchableOpacity style={styles.btnSubmit}>
+                        <TouchableOpacity onPress={() => login()} style={styles.btnSubmit}>
                             <Text style={styles.submitText}>Logar</Text>
                         </TouchableOpacity>
 

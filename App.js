@@ -15,20 +15,43 @@ import {
 } from 'react-native';
 import Tabs from './pages/Tabs';
 import Login from './pages/Login';
+import Home from './pages/Home';
+import Alarm from './pages/Alarm';
+import Schedule from './pages/Schedule';
 import * as Font from 'expo-font';
 import { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 export default function App() {
+    const [fontsLoaded, setFontsLoaded] = useState(false);
     const fetchFonts = () => {
         return Font.loadAsync({
-          'koho-bold': require('./assets/fonts/KoHo-Bold.ttf'),
+            'koho-bold': require('./assets/fonts/KoHo-Bold.ttf')
         });
-      }
-    const [isLogged, setIsLogged] = useState(true)
+    }
+
+    const [isLogged, setIsLogged] = useState(false)
+
     useEffect(() => {
-        fetchFonts()
-    }, [])
-    return !isLogged ?( <Login />) : (<Tabs/>);
+        fetchFonts().then(() => setFontsLoaded(true));
+    }, []);
+    return fontsLoaded && (         
+        <NavigationContainer>
+            <MyStack />
+        </NavigationContainer>
+    );
+}
+
+function MyStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
+        </Stack.Navigator>
+    );
 }
 
 const styles = StyleSheet.create({

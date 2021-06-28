@@ -29,6 +29,7 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
     return (
         <Drawer.Navigator
+            initialRouteName='Menu'
             drawerContentOptions={{
                 style: {
                     elevation: 0,
@@ -78,16 +79,12 @@ function MyTabs() {
             <Drawer.Screen name="Alarme" component={Alarm} />
             <Drawer.Screen name="Agenda" component={Schedule} />
             <Drawer.Screen name="Logout" component={Login} />
-
         </Drawer.Navigator>
     );
 }
 
-
 export default function Tabs() {
     return (
-        <NavigationContainer>
-            <MyTabs />
-        </NavigationContainer>
+        <MyTabs />
     );
 }
